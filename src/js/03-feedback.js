@@ -10,20 +10,21 @@ const submitButton = document.querySelector("button");
 var existing = localStorage.getItem('feedback-form-state');
 
 existing = existing ? JSON.parse(existing) : {};
+if (existing.email !== undefined || existing.message !== undefined) {
+    emailInput.value = existing.email;
+    messageInput.value = existing.message;
+}
 
-emailInput.value = existing.email;
-messageInput.value = existing.message;
-
-wholeForm.addEventListener("input", () => {
+wholeForm.addEventListener("input", _.throttle(() => {
     existing['email'] = emailInput.value;
     existing['message'] = messageInput.value;
     localStorage.setItem('feedback-form-state', JSON.stringify(existing));
-});
+}, 500));
 
 submitButton.addEventListener("click", () => {
     const output = localStorage.getItem('feedback-form-state');
     // localStorage.clear();
     // wholeForm.reset();
     localStorage.clear();
-    return output;
+    console.log(output);
 });
