@@ -4,7 +4,6 @@ const wholeForm = document.querySelector(".feedback-form");
 const emailInput = document.querySelector("input[name='email']");
 const messageInput = document.querySelector("textarea[name='message']");
 const submitButton = document.querySelector("button");
-
 // let LOCALSTORAGE_INPUTS = 'feedback-form-state';
 
 var existing = localStorage.getItem('feedback-form-state');
@@ -21,10 +20,12 @@ wholeForm.addEventListener("input", _.throttle(() => {
     localStorage.setItem('feedback-form-state', JSON.stringify(existing));
 }, 500));
 
-submitButton.addEventListener("click", () => {
+submitButton.addEventListener("click", (event) => {
     const output = localStorage.getItem('feedback-form-state');
     // localStorage.clear();
     // wholeForm.reset();
     localStorage.clear();
+    wholeForm.reset();
     console.log(output);
+    event.preventDefault();
 });
